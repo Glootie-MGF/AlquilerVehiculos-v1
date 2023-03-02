@@ -15,7 +15,7 @@ public class Turismo extends Vehiculo {
 	//Constructor copia
 	public Turismo(Turismo turismo) {
 		super(turismo);
-		setCilindrada(turismo.getCilindrada());
+		cilindrada = (turismo.getCilindrada());
 	}
 	public int getCilindrada() {
 		return cilindrada;

@@ -10,28 +10,33 @@ public abstract class Vehiculo {
 	private String modelo;
 	private String matricula;
 
-	
+	//Constructor
 	protected Vehiculo(String marca, String modelo, String matricula) {
 		setMarca(marca);
 		setModelo(modelo);
 		setMatricula(matricula);
 	}
+	//Constructor copia
 	protected Vehiculo(Vehiculo vehiculo) {
 		if (vehiculo == null) {
 			throw new NullPointerException("ERROR: No es posible copiar un vehículo nulo.");
 		}
-		setMarca(vehiculo.getMarca());
-		setModelo(vehiculo.getModelo());
-		setMatricula(vehiculo.getMatricula());
+		marca = (vehiculo.getMarca());
+		modelo = (vehiculo.getModelo());
+		matricula = (vehiculo.getMatricula());
 	}
 
+	//Métodos
 	public static Vehiculo copiar(Vehiculo vehiculo) {
 		Vehiculo vehiculoCopiado = null;
+		
 		if(vehiculo instanceof Turismo turismo) {
 			vehiculoCopiado = new Turismo(turismo);
+		}else if(vehiculo instanceof Autobus autobus) {
+			vehiculoCopiado = new Autobus(autobus);
+		}else if(vehiculo instanceof Furgoneta furgoneta) {
+			vehiculoCopiado = new Furgoneta(furgoneta);
 		}
-		//TO DO 
-		//Autobús y furgoneta
 		return vehiculoCopiado;
 	}
 	
@@ -104,7 +109,5 @@ public abstract class Vehiculo {
 		Vehiculo other = (Vehiculo) obj;
 		return Objects.equals(matricula, other.matricula);
 	}
-
-	
 
 }
