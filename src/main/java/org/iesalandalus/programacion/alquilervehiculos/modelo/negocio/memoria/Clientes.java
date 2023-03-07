@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.alquilervehiculos.modelo.negocio;
+package org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.memoria;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,9 @@ import java.util.List;
 import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.IClientes;
 
-public class Clientes {
+public class Clientes implements IClientes {
 
 	private List<Cliente> coleccionClientes;
 
@@ -17,14 +18,17 @@ public class Clientes {
 	}
 
 	//Métodos
+	@Override
 	public List<Cliente> get() {
 		return new ArrayList<>(coleccionClientes);
 	}
 
+	@Override
 	public int getCantidad() {
 		return coleccionClientes.size();
 	}
 
+	@Override
 	public void insertar(Cliente cliente) throws OperationNotSupportedException {
 		if (cliente == null) {
 			throw new NullPointerException("ERROR: No se puede insertar un cliente nulo.");
@@ -38,6 +42,7 @@ public class Clientes {
 		}
 	}
 
+	@Override
 	public Cliente buscar(Cliente cliente) {
 		if (cliente == null) {
 			throw new NullPointerException("ERROR: No se puede buscar un cliente nulo.");
@@ -54,6 +59,7 @@ public class Clientes {
 		 return aux;
 	}
 
+	@Override
 	public void borrar(Cliente cliente) throws OperationNotSupportedException {
 		if (cliente == null) {
 			throw new NullPointerException("ERROR: No se puede borrar un cliente nulo.");
@@ -64,6 +70,7 @@ public class Clientes {
 		coleccionClientes.remove(cliente);
 	}
 	
+	@Override
 	public void modificar(Cliente cliente, String nombre, String telefono) throws OperationNotSupportedException {
 		// Crea el método modificar que permitirá cambiar el nombre o el teléfono
 		// (si estos parámetros no son nulos ni blancos) de un cliente existente y
