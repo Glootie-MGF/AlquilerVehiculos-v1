@@ -1,12 +1,13 @@
 package org.iesalandalus.programacion.alquilervehiculos.modelo.dominio;
 
 public class Autobus extends Vehiculo {
-	
+
 	private static final int FACTOR_PLAZAS = 2;
 	private int plazas;
 
 	// Constructor por parámetros
 	public Autobus(String marca, String modelo, int plazas, String matricula) {
+
 		super(marca, modelo, matricula);
 		setPlazas(plazas);
 	}
@@ -17,7 +18,7 @@ public class Autobus extends Vehiculo {
 		plazas = (autobus.getPlazas());
 	}
 
-	//Métodos
+	// Métodos
 	public int getPlazas() {
 		return plazas;
 	}

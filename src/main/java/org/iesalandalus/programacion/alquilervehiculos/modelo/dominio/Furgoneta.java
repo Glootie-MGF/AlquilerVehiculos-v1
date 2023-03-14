@@ -1,7 +1,7 @@
 package org.iesalandalus.programacion.alquilervehiculos.modelo.dominio;
 
-public class Furgoneta extends Vehiculo{
-	
+public class Furgoneta extends Vehiculo {
+
 	private static final int FACTOR_PMA = 100;
 	private static final int FACTOR_PLAZAS = 1;
 	private int pma;
@@ -9,6 +9,7 @@ public class Furgoneta extends Vehiculo{
 
 	// Constructor por parámetros
 	public Furgoneta(String marca, String modelo, int pma, int plazas, String matricula) {
+
 		super(marca, modelo, matricula);
 		setPma(pma);
 		setPlazas(plazas);
@@ -16,17 +17,19 @@ public class Furgoneta extends Vehiculo{
 
 	// Constructor copia
 	public Furgoneta(Furgoneta furgoneta) {
+
 		super(furgoneta);
-		pma = (furgoneta.getPma());
-		plazas = (furgoneta.getPlazas());
+		pma = furgoneta.getPma();
+		plazas = furgoneta.getPlazas();
 	}
-	
-	//Métodos
+
+	// Métodos
 	public int getPma() {
 		return pma;
 	}
 
 	private void setPma(int pma) {
+
 		if (pma <= 100 || pma > 10000) {
 			throw new IllegalArgumentException("ERROR: El PMA no es correcto.");
 		}
@@ -38,6 +41,7 @@ public class Furgoneta extends Vehiculo{
 	}
 
 	private void setPlazas(int plazas) {
+
 		if (plazas <= 1 || plazas > 9) {
 			throw new IllegalArgumentException("ERROR: Las plazas no son correctas.");
 		}

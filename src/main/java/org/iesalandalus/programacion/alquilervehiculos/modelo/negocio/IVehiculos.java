@@ -8,6 +8,7 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 
 public interface IVehiculos {
 
+	// Métodos
 	List<Vehiculo> get();
 
 	int getCantidad();

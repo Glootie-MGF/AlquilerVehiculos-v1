@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.alquilervehiculos.vista;
+package org.iesalandalus.programacion.alquilervehiculos.vista.texto;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -97,18 +97,18 @@ public class Consola {
 		return leerCadena("Introduzca el teléfono de contacto: ");
 	}
 
-	public static Vehiculo leerTurismo() {
+	private static Vehiculo leerVehiculo() {
 		return new Turismo(leerCadena("Introduzca la marca del turismo: "),
 				leerCadena("Introduzca el modelo del turismo: "), leerEntero("Introduzca la cilindrada del turismo: "),
 				leerCadena("Introduzca la matrícula del turismo: "));
 	}
 
-	public static Turismo leerTurismoMatricula() {
-		return Turismo.getVehiculoConMatricula(leerCadena("Introduzca matrícula: "));
+	public static Vehiculo leerVehiculoMatricula() {
+		return Vehiculo.getVehiculoConMatricula(leerCadena("Introduzca matrícula: "));
 	}
 
 	public static Alquiler leerAlquiler() {
-		return new Alquiler(leerClienteDni(), leerTurismoMatricula(),
+		return new Alquiler(leerClienteDni(), leerVehiculoMatricula(),
 				leerFecha("Introduzca la fecha para el alquiler: "));
 	}
 
