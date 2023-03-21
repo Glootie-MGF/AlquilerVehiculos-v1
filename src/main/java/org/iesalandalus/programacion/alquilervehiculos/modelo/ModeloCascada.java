@@ -8,12 +8,8 @@ import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.IFuenteDatos;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.memoria.Alquileres;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.memoria.Clientes;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.memoria.Vehiculos;
 
 public class ModeloCascada extends Modelo {
 
@@ -27,13 +23,13 @@ public class ModeloCascada extends Modelo {
 	@Override
 	public void insertar(Cliente cliente) throws OperationNotSupportedException {
 
-		clientes.insertar(new Cliente(cliente));
+		getClientes().insertar(new Cliente(cliente));
 	}
 
 	@Override
 	public void insertar(Vehiculo vehiculo) throws OperationNotSupportedException {
 
-		vehiculos.insertar(Vehiculo.copiar(vehiculo));
+		getVehiculos().insertar(Vehiculo.copiar(vehiculo));
 	}
 
 	@Override
@@ -43,19 +39,19 @@ public class ModeloCascada extends Modelo {
 			throw new NullPointerException("ERROR: No se puede realizar un alquiler nulo.");
 		}
 
-		Cliente clienteBuscado = clientes.buscar(alquiler.getCliente());
+		Cliente clienteBuscado = getClientes().buscar(alquiler.getCliente());
 
 		if (clienteBuscado == null) {
 			throw new OperationNotSupportedException("ERROR: No existe el cliente del alquiler.");
 		}
 
-		Vehiculo vehiculoBuscado = vehiculos.buscar(alquiler.getVehiculo());
+		Vehiculo vehiculoBuscado = getVehiculos().buscar(alquiler.getVehiculo());
 
 		if (vehiculoBuscado == null) {
 			throw new OperationNotSupportedException("ERROR: No existe el turismo del alquiler.");
 		}
 
-		alquileres.insertar(new Alquiler(clienteBuscado, vehiculoBuscado, alquiler.getFechaAlquiler()));
+		getAlquileres().insertar(new Alquiler(clienteBuscado, vehiculoBuscado, alquiler.getFechaAlquiler()));
 	}
 
 	/*
@@ -64,24 +60,24 @@ public class ModeloCascada extends Modelo {
 	 */
 	@Override
 	public Cliente buscar(Cliente cliente) {
-		return new Cliente(clientes.buscar(cliente));
+		return new Cliente(getClientes().buscar(cliente));
 	}
 
 	@Override
 	public Vehiculo buscar(Vehiculo vehiculo) {
-		return Vehiculo.copiar(vehiculos.buscar(vehiculo));
+		return Vehiculo.copiar(getVehiculos().buscar(vehiculo));
 	}
 
 	@Override
 	public Alquiler buscar(Alquiler alquiler) {
-		return new Alquiler(alquileres.buscar(alquiler));
+		return new Alquiler(getAlquileres().buscar(alquiler));
 	}
 
 	// Crea el método modificar que invocará a su homólogo en la clase de negocio.
 	@Override
 	public void modificar(Cliente cliente, String nombre, String telefono) throws OperationNotSupportedException {
 
-		clientes.modificar(cliente, nombre, telefono);
+		getClientes().modificar(cliente, nombre, telefono);
 	}
 
 	// Crea los diferentes métodos devolver
@@ -107,27 +103,27 @@ public class ModeloCascada extends Modelo {
 	@Override
 	public void borrar(Cliente cliente) throws OperationNotSupportedException {
 
-		for (Alquiler alquilerAux : alquileres.get(cliente)) {
+		for (Alquiler alquilerAux : getAlquileres().get(cliente)) {
 
-			borrar(alquilerAux);
+			getAlquileres().borrar(alquilerAux);
 		}
-		clientes.borrar(cliente);
+		getClientes().borrar(cliente);
 	}
 
 	@Override
 	public void borrar(Vehiculo vehiculo) throws OperationNotSupportedException {
 
-		for (Alquiler alquilerAux : alquileres.get(vehiculo)) {
+		for (Alquiler alquilerAux : getAlquileres().get(vehiculo)) {
 
-			borrar(alquilerAux);
+			getAlquileres().borrar(alquilerAux);
 		}
-		vehiculos.borrar(vehiculo);
+		getVehiculos().borrar(vehiculo);
 	}
 
 	@Override
 	public void borrar(Alquiler alquiler) throws OperationNotSupportedException {
 
-		alquileres.borrar(alquiler);
+		getAlquileres().borrar(alquiler);
 	}
 
 	/*
@@ -139,7 +135,7 @@ public class ModeloCascada extends Modelo {
 
 		List<Cliente> listaClientes = new ArrayList<>();
 
-		for (Cliente cliente : clientes.get()) {
+		for (Cliente cliente : getClientes().get()) {
 			listaClientes.add(new Cliente(cliente));
 		}
 		return listaClientes;
@@ -150,7 +146,7 @@ public class ModeloCascada extends Modelo {
 
 		List<Vehiculo> listaVehiculos = new ArrayList<>();
 
-		for (Vehiculo vehiculo : vehiculos.get()) {
+		for (Vehiculo vehiculo : getVehiculos().get()) {
 			listaVehiculos.add(Vehiculo.copiar(vehiculo));
 		}
 		return listaVehiculos;
@@ -161,7 +157,7 @@ public class ModeloCascada extends Modelo {
 
 		List<Alquiler> listaAlquileres = new ArrayList<>();
 
-		for (Alquiler alquiler : alquileres.get()) {
+		for (Alquiler alquiler : getAlquileres().get()) {
 			listaAlquileres.add(new Alquiler(alquiler));
 		}
 		return listaAlquileres;
@@ -172,7 +168,7 @@ public class ModeloCascada extends Modelo {
 
 		List<Alquiler> listaAlquileresConCliente = new ArrayList<>();
 
-		for (Alquiler alquilerAux : alquileres.get(cliente)) {
+		for (Alquiler alquilerAux : getAlquileres().get(cliente)) {
 			listaAlquileresConCliente.add(new Alquiler(alquilerAux));
 		}
 		return listaAlquileresConCliente;
@@ -181,11 +177,11 @@ public class ModeloCascada extends Modelo {
 	@Override
 	public List<Alquiler> getListaAlquileres(Vehiculo vehiculo) {
 
-		List<Alquiler> listaAlquileresConTurismo = new ArrayList<>();
+		List<Alquiler> listaAlquileresConVehiculo = new ArrayList<>();
 
-		for (Alquiler alquilerAux : alquileres.get(vehiculo)) {
-			listaAlquileresConTurismo.add(new Alquiler(alquilerAux));
+		for (Alquiler alquilerAux : getAlquileres().get(vehiculo)) {
+			listaAlquileresConVehiculo.add(new Alquiler(alquilerAux));
 		}
-		return listaAlquileresConTurismo;
+		return listaAlquileresConVehiculo;
 	}
 }

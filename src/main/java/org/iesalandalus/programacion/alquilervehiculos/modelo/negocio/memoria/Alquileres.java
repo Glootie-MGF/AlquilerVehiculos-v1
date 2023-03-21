@@ -45,15 +45,15 @@ public class Alquileres implements IAlquileres {
 	@Override
 	public List<Alquiler> get(Vehiculo vehiculo) {
 
-		List<Alquiler> listaAuxTurismo = new ArrayList<>();
+		List<Alquiler> listaAuxVehiculo = new ArrayList<>();
 
 		for (Alquiler alquiler : coleccionAlquileres) {
 			if (alquiler.getVehiculo().equals(vehiculo)) {
 
-				listaAuxTurismo.add(alquiler);
+				listaAuxVehiculo.add(alquiler);
 			}
 		}
-		return listaAuxTurismo;
+		return listaAuxVehiculo;
 	}
 
 	@Override

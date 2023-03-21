@@ -1,7 +1,5 @@
 package org.iesalandalus.programacion.alquilervehiculos.vista.texto;
 
-import javax.naming.OperationNotSupportedException;
-
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Autobus;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Furgoneta;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
@@ -29,31 +27,33 @@ public enum TipoVehiculo {
 		return ordinal >= 0 && TipoVehiculo.values().length > ordinal;
 	}
 
-	public static TipoVehiculo get(int ordinal) throws OperationNotSupportedException {
+	public static TipoVehiculo get(int ordinal) {
 
 		if (!(esOrdinalValido(ordinal))) {
-			throw new OperationNotSupportedException("ERROR: El ordinal NO es válido.");
+			throw new IllegalArgumentException("ERROR: El ordinal NO es válido.");
 		}
 		return TipoVehiculo.values()[ordinal];
 	}
 
 	public static TipoVehiculo get(Vehiculo vehiculo) {
 
+		TipoVehiculo tipo = null;
+
 		if (vehiculo == null) {
 			throw new NullPointerException("ERROR: El vehículo NO puede ser nulo.");
 		}
 		if (vehiculo instanceof Turismo) {
-			return TipoVehiculo.TURISMO;
+			tipo = TipoVehiculo.TURISMO;
 		} else if (vehiculo instanceof Autobus) {
-			return TipoVehiculo.AUTOBUS;
+			tipo = TipoVehiculo.AUTOBUS;
 		} else if (vehiculo instanceof Furgoneta) {
-			return TipoVehiculo.FURGONETA;
+			tipo = TipoVehiculo.FURGONETA;
 		}
-		return null;
+		return tipo;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("%s", nombre);
+		return String.format("%d. %s", ordinal() + 1, nombre);
 	}
 }

@@ -51,17 +51,21 @@ public class Clientes implements IClientes {
 		if (cliente == null) {
 			throw new NullPointerException("ERROR: No se puede modificar un cliente nulo.");
 		}
-		if (coleccionClientes.contains(cliente)) {
 
-			if (nombre != null && !nombre.isBlank()) {
-				buscar(cliente).setNombre(nombre);
-			}
-			if (telefono != null && !telefono.isBlank()) {
-				buscar(cliente).setTelefono(telefono);
-			}
-		} else {
+		Cliente clienteAux = buscar(cliente);
+
+		if (clienteAux == null) {
+
 			throw new OperationNotSupportedException("ERROR: No existe ningún cliente con ese DNI.");
 		}
+
+		if (nombre != null && !nombre.isBlank()) {
+			clienteAux.setNombre(nombre);
+		}
+		if (telefono != null && !telefono.isBlank()) {
+			clienteAux.setTelefono(telefono);
+		}
+
 	}
 
 	@Override
@@ -72,8 +76,8 @@ public class Clientes implements IClientes {
 		}
 
 		int indice = coleccionClientes.indexOf(cliente);
-		
-		Cliente aux = null;	// Cliente auxiliar
+
+		Cliente aux = null; // Cliente auxiliar
 
 		if (indice != -1) {
 			aux = coleccionClientes.get(indice);
@@ -83,7 +87,7 @@ public class Clientes implements IClientes {
 
 	@Override
 	public void borrar(Cliente cliente) throws OperationNotSupportedException {
-		
+
 		if (cliente == null) {
 			throw new NullPointerException("ERROR: No se puede borrar un cliente nulo.");
 		}

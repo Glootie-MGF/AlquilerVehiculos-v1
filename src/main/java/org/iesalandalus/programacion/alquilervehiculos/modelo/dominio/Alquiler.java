@@ -3,7 +3,6 @@ package org.iesalandalus.programacion.alquilervehiculos.modelo.dominio;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 import javax.naming.OperationNotSupportedException;
@@ -33,10 +32,10 @@ public class Alquiler {
 			throw new NullPointerException("ERROR: No es posible copiar un alquiler nulo.");
 		}
 
-		cliente = (new Cliente(alquiler.getCliente()));
-		vehiculo = (Vehiculo.copiar(alquiler.getVehiculo()));
-		fechaAlquiler = (alquiler.getFechaAlquiler());
-		fechaDevolucion = (alquiler.getFechaDevolucion());
+		cliente = new Cliente(alquiler.getCliente());
+		vehiculo = Vehiculo.copiar(alquiler.getVehiculo());
+		fechaAlquiler = alquiler.getFechaAlquiler();
+		fechaDevolucion = alquiler.getFechaDevolucion();
 	}
 
 	// Métodos
